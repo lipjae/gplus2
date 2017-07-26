@@ -24,6 +24,8 @@ public class CONST_BAS_DTO {
 	private String rep_contat_tel_no;		// 대표연락처
 	private String add_info;					// 추가정보
 	private Date reg_dt;						// 공사등록일자
+	private Date reg_req_dt;					// 등록요청일자
+	private String rep_mng_email;			//대표담당자EMAIL
 	
 	public String getConst_id() {
 		return const_id;
@@ -82,6 +84,12 @@ public class CONST_BAS_DTO {
 	public Date getReg_dt() {
 		return reg_dt;
 	}
+	public Date getReg_req_dt() {
+		return reg_req_dt;
+	}
+	public String getRep_mng_email() {
+		return rep_mng_email;
+	}
 	public void setConst_id(String const_id) {
 		this.const_id = const_id;
 	}
@@ -139,7 +147,12 @@ public class CONST_BAS_DTO {
 	public void setReg_dt(Date reg_dt) {
 		this.reg_dt = reg_dt;
 	}
-	
+	public void setReg_req_dt(Date reg_req_dt) {
+		this.reg_req_dt = reg_req_dt;
+	}
+	public void setRep_mng_email(String rep_mng_email) {
+		this.rep_mng_email = rep_mng_email;
+	}
 
 	
 }

@@ -7,14 +7,14 @@ import java.sql.Date;
 public class QUOT_JOIN_INFO_DTO {
 	
 	
-	private String comp_id;			// 회원ID
-	private String const_id;			// 공사ID
-	private String cont_cat_id;		// 공종카테고리
-	private String const_like_cd;	// 공사관심유형코드
-	private Date quot_join_dt;		// 견적참여일자
-	
-	public String getComp_id() {
-		return comp_id;
+	private String cust_comp_id;		// 회원ID
+	private String const_id;				// 공사ID
+	private String cont_cat_id;			// 공종카테고리
+	private String const_like_cd;		// 공사관심유형코드
+	private Date quot_join_dt;			// 견적참여일자
+		
+	public String getCust_comp_id() {
+		return cust_comp_id;
 	}
 	public String getConst_id() {
 		return const_id;
@@ -28,8 +28,8 @@ public class QUOT_JOIN_INFO_DTO {
 	public Date getQuot_join_dt() {
 		return quot_join_dt;
 	}
-	public void setComp_id(String comp_id) {
-		this.comp_id = comp_id;
+	public void setCust_comp_id(String cust_comp_id) {
+		this.cust_comp_id = cust_comp_id;
 	}
 	public void setConst_id(String const_id) {
 		this.const_id = const_id;

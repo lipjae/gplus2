@@ -1,19 +1,23 @@
 package dto;
 
+import java.sql.Date;
+
 /*회원사 테이블*/
 
 public class COMP_MBR_BAS_DTO {
 	
-	private String cust_comp_id;	// 회원사ID
-	private String comp_nm;			// 회사명
-	private String cont_cat_id;		// 공종카테고리ID
-	private String mng_nm;			// 담당자명
-	private String pass_no;			// 비밀번호
-	private String wire_tel_no;		// 유선전화
-	private String wirel_tel_no;		// 무선전화
-	private String emai_addr;		// 이메일주소
-	private String veri_no;			// 인증번호
-	private String join_type_cd;	// 가입유형코드
+	private String cust_comp_id;			// 회원사ID
+	private String comp_nm;					// 회사명
+	private String cont_cat_id;				// 공종카테고리ID
+	private String mng_nm;					// 담당자명
+	private String pass_no;					// 비밀번호
+	private String wire_tel_no;				// 유선전화
+	private String wirel_tel_no;				// 무선전화
+	private String emai_addr;				// 이메일주소
+	private String veri_no;					// 인증번호
+	private String join_type_cd;			// 가입유형코드
+	private Date join_dt;						// 가입일
+	private String cust_reg_stat_cd;		// 회원등록상태코드
 	
 	public String getCust_comp_id() {
 		return cust_comp_id;
@@ -45,6 +49,12 @@ public class COMP_MBR_BAS_DTO {
 	public String getJoin_type_cd() {
 		return join_type_cd;
 	}
+	public Date getJoin_dt() {
+		return join_dt;
+	}
+	public String getCust_reg_stat_cd() {
+		return cust_reg_stat_cd;
+	}
 	public void setCust_comp_id(String cust_comp_id) {
 		this.cust_comp_id = cust_comp_id;
 	}
@@ -75,8 +85,12 @@ public class COMP_MBR_BAS_DTO {
 	public void setJoin_type_cd(String join_type_cd) {
 		this.join_type_cd = join_type_cd;
 	}
+	public void setJoin_dt(Date join_dt) {
+		this.join_dt = join_dt;
+	}
+	public void setCust_reg_stat_cd(String cust_reg_stat_cd) {
+		this.cust_reg_stat_cd = cust_reg_stat_cd;
+	}
 
-	
-	
 	
 }
