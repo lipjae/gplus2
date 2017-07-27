@@ -50,7 +50,7 @@ if(request.getParameter("logout") != null){
         <div class="user">
           <h1 class="logo"><a href="/gplus2/index.jsp"><img src="./images/logo.png" alt="건설플러스"></a></h1>
           <div class="u_menu">
-            <span class="">건플 직거래관</span>
+            <span class=""><a href="http://www.gunsulplus.com">건플직거래관</a></span>
             <%if(id == null){ %>
             <a href="/gplus2/login.jsp" class="btn btn_bg_white w99"><span>로그인</span></a>
             <%}else{ %>
