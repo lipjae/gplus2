@@ -1,9 +1,20 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="dtoLee.ListDTO"%>
+<%@page import="daoLee.memberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
  <%
+ 
+ memberDAO mdao = new memberDAO();
+ 
+ 
  Object ses = session.getAttribute("id");
  String id = (String)ses;
+ /* List<ListDTO> list1 = mdao.listType(id, "OUC");
+ out.print(list1.get(1).getColumn1()); */
+ 
  %>   
 <!DOCTYPE html>
 <html lang="ko">
