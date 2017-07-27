@@ -37,7 +37,7 @@ public class joinDAO {
 		
 		RS = PST.executeUpdate();
 		
-		return RS;
+		return 1;
 	}
 	
 	public void test(String a) {

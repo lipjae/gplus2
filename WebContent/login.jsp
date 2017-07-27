@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+Object ses = session.getAttribute("id");
+String id = (String)ses;
+
+String uri = request.getHeader("referer");
+
+%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -20,8 +27,8 @@
         <div class="user">
           <h1 class="logo"><a href="/gplus2/index.jsp"><img src="./images/logo.png" alt="건축플러스"></a></h1>
           <div class="u_menu">
-            <span class="">건플 직거래관</span>
-            <a href="/gplus2/login.jsp" class="btn btn_bg_white w99"><span>로그인</span></a>
+            <span class=""><a href="http://www.gunsulplus.com">건플직거래관</a></span>
+            <a href="/gplus2/login.jsp" onclick="Scene(<%=id %>);" class="btn btn_bg_white w99"><span>로그인</span></a>
             <a href="/gplus2/join.jsp" class="btn btn_bg_white w99"><span>회원 가입</span></a>
           </div>
         </div>
@@ -32,8 +39,8 @@
           <p>국내 최대 규모의 민간건설 입찰 서비스</p>
           <div class="main_btns">
             <ul>
-              <li><a href="#none" class="btn btn_trans"><span>현장 등록하기</span></a></li>
-              <li><a href="#none" class="btn btn_trans"><span>견적 참여하기</span></a></li>
+              <li><a href="#" onclick="Scene(<%=id %>);"  class="btn btn_trans"><span>현장 등록하기</span></a></li>
+              <li><a href="/gplus2/list.jsp?type=ALL" class="btn btn_trans"><span>견적 참여하기</span></a></li>
             </ul>
           </div>
         </div>
@@ -60,7 +67,7 @@
         <div class="inner">
           <ul class="cboth">
           <li><a href="#none">서비스 소개</a></li>
-          <li><a href="#none">현장 등록하기</a></li>
+          <li><a href="#" onclick="Scene(<%=id %>);">현장 등록하기</a></li>
           <li><a href="#none">가입문의</a></li>
           <li><a href="#none">이용약관</a></li>
           <li><a href="#none">개인정보보호방침</a></li>
@@ -84,6 +91,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="js/script.js"></script>
   <script src="js/jquery.cookie.js"></script>
+  <script src="js/lee.js"></script>
   </body>
   <script>
   $(document).ready(function(){
@@ -123,7 +131,7 @@
   							$.cookie('id',loginid);
   						}
   						alert('로그인 되었습니다.');
-  						location.href = '/gplus2/index.jsp';
+  						location.href = '<%=uri%>';
   					}else{
   						alert('아디이 및 비밀번호가 일치하지 않습니다.');
   						$('#loginId').val();

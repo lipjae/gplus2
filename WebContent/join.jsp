@@ -37,7 +37,7 @@ if(request.getParameter("logout") != null){
         <div class="user">
           <h1 class="logo"><a href="/gplus2/index.jsp"><img src="./images/logo.png" alt="건축플러스"></a></h1>
           <div class="u_menu">
-            <span class="">건플 직거래관</span>
+            <span class=""><a href="http://www.gunsulplus.com">건플직거래관</a></span>
             <% if(id != null){ %>
             <a href="/gplus2/login.jsp" onclick="logout();" class="btn btn_bg_white w99"><span>로그아웃</span></a>
             <%}else{ %>
@@ -54,8 +54,8 @@ if(request.getParameter("logout") != null){
           <p>국내 최대 규모의 민간건설 입찰 서비스</p>
           <div class="main_btns">
             <ul>
-              <li><a  href="#none" class="btn btn_trans"><span>현장 등록하기</span></a></li>
-              <li><a  href="gplus2/list.jsp" class="btn btn_trans"><span>견적 참여하기</span></a></li>
+              <li><a  href="#" onclick="Scene(<%=id %>);" class="btn btn_trans"><span>현장 등록하기</span></a></li>
+              <li><a  href="/gplus2/list.jsp?type=ALL" class="btn btn_trans"><span>견적 참여하기</span></a></li>
             </ul>
           </div>
         </div>
@@ -129,7 +129,7 @@ if(request.getParameter("logout") != null){
         <div class="inner">
           <ul class="cboth">
           <li><a href="#none">서비스 소개</a></li>
-          <li><a href="#none">현장 등록하기</a></li>
+          <li><a href="#" onclick="Scene(<%=id %>);">현장 등록하기</a></li>
           <li><a href="#none">가입문의</a></li>
           <li><a href="#none">이용약관</a></li>
           <li><a href="#none">개인정보보호방침</a></li>
@@ -152,6 +152,7 @@ if(request.getParameter("logout") != null){
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <!-- <script src="js/script.js"></script> -->
+  <script src="js/lee.js"></script>
   </body>
   <script>
   var $tab = $(".tab_wrap");

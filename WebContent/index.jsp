@@ -56,7 +56,12 @@ if(request.getParameter("logout") != null){
             <%}else{ %>
             <a href="/gplus2/index.jsp" onclick="logout();" class="btn btn_bg_white w99"><span>로그아웃</span></a>
             <%} %>
+            <%if(id == null){ %>
             <a href="/gplus2/join.jsp" class="btn btn_bg_white w99"><span>회원가입</span></a>
+            <%}else{ %>
+            <a href="/gplus2/member.jsp" class="btn btn_bg_white w99"><span>참여/찜</span></a>
+            <%} %>
+            
           </div>
         </div>
       </div>
@@ -67,7 +72,7 @@ if(request.getParameter("logout") != null){
           <div class="main_btns">
             <ul>
               <li><a href="#none" onclick="Scene(<%=id %>);" class="btn btn_trans"><span>현장 등록하기</span></a></li>
-              <li><a href="gplus2/list.jsp" class="btn btn_trans"><span>견적 참여하기</span></a></li>
+              <li><a href="/gplus2/list.jsp?type=ALL" class="btn btn_trans"><span>견적 참여하기</span></a></li>
             </ul>
           </div>
         </div>
@@ -90,7 +95,7 @@ if(request.getParameter("logout") != null){
             <li><a href="/gplus2/list.jsp?type=SC" class="menu11"><span class="text"><p><strong>종합건축</strong></p><p>주택/빌딩/근생/공장</p></span></a></li>
             <li><a href="/gplus2/list.jsp?type=EC" class="menu12"><span class="text"><p><strong>기타공사</strong></p><p>조경/준공청소 등</p></span></a></li>
             <li><a href="/gplus2/list.jsp?type=ALL" class="menu13"><span class="text"><p><strong>전체보기</strong></p></span></a></li>
-            <li><a href="/gplus2/list.jsp?type=" class="menu14"><span class="text"><img src="./images/banner01.png" alt=""></span></a></li>
+            <li><a href="http://www.gunsulplus.com" class="menu14"><span class="text"><img src="./images/banner01.png" alt=""></span></a></li>
           </ul>
         </div>
       </div>
@@ -100,7 +105,7 @@ if(request.getParameter("logout") != null){
         <div class="inner">
           <ul class="cboth">
           <li><a href="#none">서비스 소개</a></li>
-          <li><a href="#none">현장 등록하기</a></li>
+          <li><a href="#none" onclick="Scene(<%=id %>);">현장 등록하기</a></li>
           <li><a href="#none">가입문의</a></li>
           <li><a href="#none">이용약관</a></li>
           <li><a href="#none">개인정보보호방침</a></li>

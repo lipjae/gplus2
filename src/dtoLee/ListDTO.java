@@ -11,8 +11,15 @@ public class ListDTO {
 	private String column7;
 	private String column8;
 	private String column9;
+	private String column10;
 	
 	
+	public String getColumn10() {
+		return column10;
+	}
+	public void setColumn10(String column10) {
+		this.column10 = column10;
+	}
 	public String getColumn9() {
 		return column9;
 	}
