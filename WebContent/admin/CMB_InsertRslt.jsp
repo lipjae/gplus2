@@ -16,13 +16,4 @@ comp_mbr_bas_DTO.setWire_tel_no(tel);
 COMP_MBR_BAS_DAO comp_mbr_bas_DAO = new COMP_MBR_BAS_DAO();
 comp_mbr_bas_DAO.comp_mbr_bas_Insert(comp_mbr_bas_DTO);
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>관리자 회원사 정보 입력 완료</title>
-</head>
-<body>
-회원사 정보 입력 완료~
-</body>
-</html>
+<%response.sendRedirect("/gplus2/index.jsp");%>

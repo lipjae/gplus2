@@ -63,13 +63,13 @@ function itemChange(){
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="./dist/images/logo.png" alt="건축플러스"></a>
+                <a class="navbar-brand" href="/gplus2/index.jsp"><img src="./dist/images/logo.png" alt="건축플러스"></a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li><a href="index.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                <li><a href="/gplus2/index.jsp"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                <li><a href="/gplus2/login.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
@@ -107,7 +107,7 @@ function itemChange(){
                     <tbody>
                         <tr>
                             <th>회사명</th>
-                            <td colspan="2"><input class="form-control" placeholder="" type="text" name="comp_nm" value="핫도그매니아"></td>
+                            <td colspan="2"><input class="form-control" placeholder="" type="text" name="comp_nm"></td>
                         </tr>
                         <tr>
                             <th>A. 공종</th>
@@ -131,20 +131,20 @@ function itemChange(){
                         </tr>
                         <tr>
                             <th>담당자 명</th>
-                            <td colspan="2"><input class="form-control" placeholder="" type="text" name="mng_nm" value="핫도그"></td>
+                            <td colspan="2"><input class="form-control" placeholder="" type="text" name="mng_nm"></td>
                         </tr>
                         <tr>
                             <th>전화번호</th>
                             <td colspan="2">
-                              <input class="form-control w30" placeholder="" type="text" name="wire_tel_1" value="010">-
-                              <input class="form-control w30" placeholder="" type="text" name="wire_tel_2" value="7777">-
-                              <input class="form-control w30" placeholder="" type="text" name="wire_tel_3" value="1234">
+                              <input class="form-control w30" placeholder="" type="text" name="wire_tel_1">-
+                              <input class="form-control w30" placeholder="" type="text" name="wire_tel_2">-
+                              <input class="form-control w30" placeholder="" type="text" name="wire_tel_3">
                             </td>
                         </tr>
                         <tr>
                             <th>이메일주소</th>
                             <td colspan="2">
-                              <input class="form-control w45" placeholder="" type="text" id="emailAddr" value="hotdog" onkeyup="writeAddr()">@
+                              <input class="form-control w45" placeholder="" type="text" id="emailAddr" onkeyup="writeAddr()">@
                               <div class="form-group w50">
                                   <select class="form-control" id="emailSite" onchange="makeEmail()">
                                       <option value="naver.com" selected="selected">naver.com</option>
@@ -164,15 +164,15 @@ function itemChange(){
                     <tbody>
                         <tr>
                             <th>ID부여</th>
-                            <td><input class="form-control" placeholder="" type="text" name="cust_comp_id" value="hotdog486"></td>
+                            <td><input class="form-control" placeholder="" type="text" name="cust_comp_id"></td>
                         </tr>
                         <tr>
                             <th>비밀번호 부여</th>
-                            <td><input class="form-control" placeholder="" type="password" name="pass_no" id="pass_no" value="12341234"></td>
+                            <td><input class="form-control" placeholder="" type="password" name="pass_no" id="pass_no"></td>
                         </tr>
                         <tr>
                             <th>비밀번호 확인</th>
-                            <td><input class="form-control" placeholder="" type="password" name="pass_con" id="pass_con" value="12341234" onblur="checkPW()"></td>
+                            <td><input class="form-control" placeholder="" type="password" name="pass_con" id="pass_con" onblur="checkPW()"></td>
                         </tr>
                         <tr>
                             <th>가입유형</th>

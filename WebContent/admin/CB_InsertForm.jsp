@@ -72,7 +72,7 @@ function itemChange(){
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="./dist/images/logo.png" alt="건축플러스"></a>
+                <a class="navbar-brand" href="/gplus2/index.jsp"><img src="./dist/images/logo.png" alt="건축플러스"></a>
             </div>
             <!-- /.navbar-header -->
 
@@ -115,7 +115,7 @@ function itemChange(){
                         <tbody>
                             <tr>
                                 <th>사업명</th>
-                                <td colspan="2"><input class="form-control" placeholder="" type="text" name="bus_nm"  value="핫도그 타워 신축"></td>
+                                <td colspan="2"><input class="form-control" placeholder="" type="text" name="bus_nm" ></td>
                             </tr>
                             <tr>
                                 <th>A 공종</th>
@@ -202,6 +202,7 @@ function itemChange(){
                                 <td colspan="2">
                                   <div class="form-group">
                                       <select class="form-control" name="cont_strut_cd" id="structure">
+                                          <option value="">선택하세요</option>
                                           <option value="ICC">철근콘크리트구조</option>
                                           <option value="IHJ">철골조</option>
                                           <option value="LHJ">경량철골조</option>
@@ -236,13 +237,13 @@ function itemChange(){
                             <tr>
                                 <th>사업자 위치</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="bus_area_loc" value="문정동 현대지식산업센터">
+                                  <input class="form-control" placeholder="" type="text" name="bus_area_loc">
                                 </td>
                             </tr>
                             <tr>
                                 <th>건축규모</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="cont_size" value="20층">
+                                  <input class="form-control" placeholder="" type="text" name="cont_size">
                                 </td>
                             </tr>
                             <tr>
@@ -252,36 +253,36 @@ function itemChange(){
                                    <div class="input-group-addon">
                                     <label for="date"><i class="fa fa-calendar"></i></label>
                                    </div>
-                                   <input class="form-control" id="date" name="date"  type="text" value="2017년07월24일">
+                                   <input class="form-control" id="date" name="date"  type="text">
                                   </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>대지면적</th>
-                                <td><input class="form-control w90" placeholder="" type="text" name="grnd_area_no" value="1000" id="area01" onkeyup="changeUint(this.id)"> ㎡</td>
+                                <td><input class="form-control w90" placeholder="" type="text" name="grnd_area_no" id="area01" onkeyup="changeUint(this.id)"> ㎡</td>
                                 <td><input class="form-control w90" placeholder="" type="text" id="ch_area01"> py</td>
                             </tr>
                             <tr>
                                 <th>건축면적</th>
-                                <td><input class="form-control w90" placeholder="" type="text" name="const_area_no" value="800"  id="area02" onkeyup="changeUint(this.id)"> ㎡</td>
+                                <td><input class="form-control w90" placeholder="" type="text" name="const_area_no" id="area02" onkeyup="changeUint(this.id)"> ㎡</td>
                                 <td><input class="form-control w90" placeholder="" type="text" id="ch_area02"> py</td>
                             </tr>
                             <tr>
                                 <th>연면적</th>
-                                <td><input class="form-control w90" placeholder="" type="text" name="tot_area_no" value="4000" id="area03" onkeyup="changeUint(this.id)"> ㎡</td>
+                                <td><input class="form-control w90" placeholder="" type="text" name="tot_area_no" id="area03" onkeyup="changeUint(this.id)"> ㎡</td>
                                 <td><input class="form-control w90" placeholder="" type="text" id="ch_area03"> py</td>
                             </tr>
                             <tr>
                                 <th>건폐율</th>
-                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="flor_area_rat" value="80">%</td>
+                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="flor_area_rat">%</td>
                             </tr>
                             <tr>
                                 <th>용적률</th>
-                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="use_area_rat" value="500">%</td>
+                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="use_area_rat">%</td>
                             </tr>
                             <tr>
                                 <th>주차대수</th>
-                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="prk_no" value="200"> 대</td>
+                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="prk_no"> 대</td>
                             </tr>
                             <tr>
                                 <th>견적예가</th>
@@ -295,7 +296,7 @@ function itemChange(){
                                   </div>
                                 </td>
                                 <td>
-                                  <input class="form-control w90" placeholder="" type="text" name="quot_expt_amt" value="200"> 원
+                                  <input class="form-control w90" placeholder="" type="text" name="quot_expt_amt"> 원
                                 </td>
                             </tr>
                             <tr>
@@ -318,7 +319,7 @@ function itemChange(){
                                 <td colspan="2">
                                   <div class="form-group">
                                     <select class="form-control" name="one_linc_yn">
-                                        <option value="Y">유</option>
+                                        <option value="Y" selected="selected">유</option>
                                         <option value="N">무</option>
                                     </select>
                                   </div>
@@ -327,7 +328,7 @@ function itemChange(){
                             <tr>
                                 <th>전년도 시평액</th>
                                 <td colspan="2">
-                                  <input class="form-control w80" placeholder="" type="text" name="pre_ym_test_amt" value="200"> 억원 이상
+                                  <input class="form-control w80" placeholder="" type="text" name="pre_ym_test_amt"> 억원 이상
                                 </td>
                             </tr>
                             <tr>
@@ -335,19 +336,19 @@ function itemChange(){
                                 <td>
                                   <div class="form-group">
                                     <select class="form-control" name="pay_cond_cd">
-                                        <option value="POPN">공개</option>
+                                        <option value="POPN" selected="selected">공개</option>
                                         <option value="PCPN">비공개</option>
                                     </select>
                                   </div>
                                 </td>
                                 <td>
-                                  <input class="form-control" placeholder="" type="text" name="pay_cond_amt" value="100">
+                                  <input class="form-control" placeholder="" type="text" name="pay_cond_amt">
                                 </td>
                             </tr>
                             <tr>
                                 <th>추가정보</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="add_info" value="결제는 바로바로">
+                                  <input class="form-control" placeholder="" type="text" name="add_info">
                                 </td>
                             </tr>
                             <tr>
@@ -359,19 +360,19 @@ function itemChange(){
                             <tr>
                                 <th>건설사명</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="const_bus_nm" value="와이즈건설">
+                                  <input class="form-control" placeholder="" type="text" name="const_bus_nm">
                                 </td>
                             </tr>
                             <tr>
                                 <th>담당자 명</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text"  name="rep_mng_nm" value="핫도그왕">
+                                  <input class="form-control" placeholder="" type="text"  name="rep_mng_nm">
                                 </td>
                             </tr>
                             <tr>
                                 <th>연락처</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="rep_contat_tel_no" value="010-7777-1234">
+                                  <input class="form-control" placeholder="" type="text" name="rep_contat_tel_no">
                                 </td>
                             </tr>
                             <tr>

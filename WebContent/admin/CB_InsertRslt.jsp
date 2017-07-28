@@ -24,7 +24,7 @@ const_cont_info_DTO.setInput_expt_dt(resultDate);
 //공사기본정보 입력
 CONST_BAS_DAO const_bas_DAO = new CONST_BAS_DAO();
 const_bas_DAO.const_bas_Insert(const_bas_DTO);
-/* 
+
 //공사ID 추출
 String resultID=const_bas_DAO.getConst_id(const_bas_DTO);
 const_bas_DTO.setConst_id(resultID);
@@ -40,14 +40,5 @@ buld_usag_info_DAO.buld_usag_info_Insert(buld_usag_info_DTO);
 //공사공종정보 입력
 CONST_CONT_INFO_DAO const_cont_info_DAO = new CONST_CONT_INFO_DAO();
 const_cont_info_DAO.const_cont_info_Insert(const_cont_info_DTO);
- */%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-공사정보 입력완료~
-</body>
-</html>
+ %>
+<%response.sendRedirect("/gplus2/index.jsp");%>

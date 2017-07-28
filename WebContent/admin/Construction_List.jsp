@@ -31,9 +31,9 @@ List<LIST_CONST_DTO> cbList = list_const_DAO.getCBList(cb_List_DTO) ;
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
 function procChange(){
-	alert($("#proc_change").val());
-	alert($("#const_id").val());
-	alert($("#cont_cat_id").val());
+// 	alert($("#proc_change").val());
+// 	alert($("#const_id").val());
+// 	alert($("#cont_cat_id").val());
 	jQuery.ajax({
 		url : "../ajax/change_Process.jsp",
 		type : "POST",
@@ -62,13 +62,13 @@ function procChange(){
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="./dist/images/logo.png" alt="건축플러스"></a>
+                <a class="navbar-brand" href="/gplus2/index.jsp"><img src="./dist/images/logo.png" alt="건축플러스"></a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li><a href="index.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                <li><a href="/gplus2/index.jsp"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                <li><a href="/gplus2/login.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
@@ -117,7 +117,7 @@ function procChange(){
                           </tr>
                       </thead>
                       <tbody>
-                      	<c:forEach var="list" items="<%=cbList%>" varStatus="status">
+                      	<c:forEach var="list" items="<%=cbList%>">
                           <tr>
 								<td>${list.no}</td>
 								<td id="prg_stat_nm">${list.prg_stat_nm}</td>
@@ -133,12 +133,12 @@ function procChange(){
                               <td>
                                 <div class="form-group">
                                     <select class="form-control" id="proc_change" onchange="procChange()">
-                                    	<option value="">진행사항 변경하기</option>
-                                        <option value="NCD/${list.const_id}/${status.count}">신규</option>
+                                    	<option value="menu">진행사항 변경하기</option>
+                                        <option value="NCD">신규</option>
                                         <option value="QIG">견적중</option>
                                         <option value="FNZ">완료</option>
                                     </select>
-                                    <input type="hidden" id="const_id" value="${list.const_id}">${status.count}
+                                    <input type="hidden" id="const_id" value="${list.const_id}">
                                     <input type="hidden" id="cont_cat_id" value="${list.cont_cat_id}">
                                 </div>
                               </td>
