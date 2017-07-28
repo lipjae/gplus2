@@ -3,8 +3,11 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.BULD_USAG_INFO_DTO;
+import dto.CONST_BAS_DTO;
 import util.JDBCUtil;
 
 public class BULD_USAG_INFO_DAO {

@@ -28,5 +28,8 @@
 </tr>
 </c:forEach>
 </table>
+<script>
+<%out.print("sss");%>
+</script>
 </body>
 </html>

@@ -1,12 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="dao.COMP_MBR_BAS_DAO" %>
+<%request.setCharacterEncoding("UTF-8"); %>
+<jsp:useBean id="comp_mbr_bas_DTO" class="dto.COMP_MBR_BAS_DTO" />
+<jsp:setProperty name="comp_mbr_bas_DTO" property="*" />
+<%
+String a=request.getParameter("wire_tel_1");
+String b=request.getParameter("wire_tel_2");
+String c=request.getParameter("wire_tel_3");
+String tel=a+"-"+b+"-"+c;
+comp_mbr_bas_DTO.setWire_tel_no(tel);
+%>
+<%
+//회원사정보 입력
+COMP_MBR_BAS_DAO comp_mbr_bas_DAO = new COMP_MBR_BAS_DAO();
+comp_mbr_bas_DAO.comp_mbr_bas_Insert(comp_mbr_bas_DTO);
+%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>관리자 회원사 정보 입력 완료</title>
 </head>
 <body>
-
+회원사 정보 입력 완료~
 </body>
 </html>

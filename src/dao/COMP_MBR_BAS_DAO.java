@@ -14,7 +14,7 @@ public class COMP_MBR_BAS_DAO {
 	private  ResultSet  RS= null ;
 	
 	public void comp_mbr_bas_Insert(COMP_MBR_BAS_DTO comp_mbr_bas_DTO){
-    	String comp_mbr_bas_INSERT = "insert into COMP_MBR_BAS values(?,?,?,?,?,?,?,?,?,?)";
+    	String comp_mbr_bas_INSERT = "insert into COMP_MBR_BAS values(?,?,?,?,?,?,?,?,?,?,sysdate(),?,?)";
         try {
             CN = JDBCUtil.getConnection();
             PST = CN.prepareStatement(comp_mbr_bas_INSERT);
@@ -29,6 +29,9 @@ public class COMP_MBR_BAS_DAO {
             PST.setString(8, comp_mbr_bas_DTO.getEmai_addr());
             PST.setString(9, comp_mbr_bas_DTO.getVeri_no());
             PST.setString(10, comp_mbr_bas_DTO.getJoin_type_cd());
+            //PST.setString(11, comp_mbr_bas_DTO.getCust_reg_stat_cd());
+            PST.setString(11, "CMG2");
+            PST.setString(12, comp_mbr_bas_DTO.getBus_cat());
     
             PST.executeUpdate();
             System.out.println("===> 회원사 정보 COMP_MBR_BAS_insert 성공 ===");

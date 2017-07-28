@@ -26,7 +26,9 @@ public class CONST_BAS_DTO {
 	private Date reg_dt;						// 공사등록일자
 	private Date reg_req_dt;					// 등록요청일자
 	private String rep_mng_email;			//대표담당자EMAIL
-	
+	private float lati_pos;					//위도
+	private float longi_pos;					//경도
+	private int mng_join_cnt;			//관리자 카운트
 	public String getConst_id() {
 		return const_id;
 	}
@@ -89,6 +91,15 @@ public class CONST_BAS_DTO {
 	}
 	public String getRep_mng_email() {
 		return rep_mng_email;
+	}
+	public float getLati_pos() {
+		return lati_pos;
+	}
+	public float getLongi_pos() {
+		return longi_pos;
+	}
+	public int getMng_join_cnt() {
+		return mng_join_cnt;
 	}
 	public void setConst_id(String const_id) {
 		this.const_id = const_id;
@@ -153,6 +164,16 @@ public class CONST_BAS_DTO {
 	public void setRep_mng_email(String rep_mng_email) {
 		this.rep_mng_email = rep_mng_email;
 	}
-
+	public void setLati_pos(float lati_pos) {
+		this.lati_pos = lati_pos;
+	}
+	public void setLongi_pos(float longi_pos) {
+		this.longi_pos = longi_pos;
+	}
+	public void setMng_join_cnt(int mng_join_cnt) {
+		this.mng_join_cnt = mng_join_cnt;
+	}
+	
+	
 	
 }

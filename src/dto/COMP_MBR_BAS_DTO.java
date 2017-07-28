@@ -18,7 +18,7 @@ public class COMP_MBR_BAS_DTO {
 	private String join_type_cd;			// 가입유형코드
 	private Date join_dt;						// 가입일
 	private String cust_reg_stat_cd;		// 회원등록상태코드
-	
+	private String bus_cat;					// 주요업종
 	public String getCust_comp_id() {
 		return cust_comp_id;
 	}
@@ -54,6 +54,9 @@ public class COMP_MBR_BAS_DTO {
 	}
 	public String getCust_reg_stat_cd() {
 		return cust_reg_stat_cd;
+	}
+	public String getBus_cat() {
+		return bus_cat;
 	}
 	public void setCust_comp_id(String cust_comp_id) {
 		this.cust_comp_id = cust_comp_id;
@@ -91,6 +94,9 @@ public class COMP_MBR_BAS_DTO {
 	public void setCust_reg_stat_cd(String cust_reg_stat_cd) {
 		this.cust_reg_stat_cd = cust_reg_stat_cd;
 	}
-
+	public void setBus_cat(String bus_cat) {
+		this.bus_cat = bus_cat;
+	}
+	
 	
 }

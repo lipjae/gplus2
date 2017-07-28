@@ -23,9 +23,9 @@ public class DIST_ZONE_INFO_DAO {
             String[] zone=allZone.split(",");
             
             for(int i=0;i<zone.length;i++){
-            PST.setString(1, dist_zone_info_DTO.getConst_id());
-            PST.setString(2, zone[i]);
-            PST.executeUpdate();
+            	PST.setString(1, dist_zone_info_DTO.getConst_id());
+            	PST.setString(2, zone[i]);
+            	PST.executeUpdate();
             }
             
             System.out.println("===> 용도지구 DIST_ZONE_INFO_insert 성공 ===");

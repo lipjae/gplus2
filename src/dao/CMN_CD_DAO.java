@@ -25,6 +25,7 @@ public class CMN_CD_DAO {
             	cnm_cd.setCmn_cd_len(RS.getInt("cmn_cd_len"));
             	cnm_cd.setCd_attr_1(RS.getString("cd_attr_1"));
             	cnm_cd_List.add(cnm_cd);
+            	System.out.println(cnm_cd_List);
             }
         } catch (Exception e) {
             e.printStackTrace();
