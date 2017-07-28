@@ -59,6 +59,7 @@ List<LIST_MEMBER_DTO> memberList = memberSite_DAO.getMemSiteList(memberSite_DTO)
                         <li><a href="Member_Company.jsp"><i class="fa fa-folder fa-fw"></i> 회원사(회원사)집계</a></li>
                         <li><a href="SiteRegister.jsp"><i class="fa fa-folder fa-fw"></i> 현장등록요청 집계</a></li>
                         <li><a href="QuotationJoin.jsp"><i class="fa fa-folder fa-fw"></i> 견적참여하기 집계</a></li>
+                        <li><a href="CCI_InsertForm.jsp"><i class="fa fa-folder fa-fw"></i> 공종 추가하기</a></li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
