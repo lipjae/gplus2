@@ -16,4 +16,5 @@ comp_mbr_bas_DTO.setWire_tel_no(tel);
 COMP_MBR_BAS_DAO comp_mbr_bas_DAO = new COMP_MBR_BAS_DAO();
 comp_mbr_bas_DAO.comp_mbr_bas_Insert(comp_mbr_bas_DTO);
 %>
-<%response.sendRedirect("/gplus2/index.jsp");%>
+<%response.sendRedirect("/index.jsp");%>
+

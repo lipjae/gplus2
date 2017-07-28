@@ -41,4 +41,4 @@ buld_usag_info_DAO.buld_usag_info_Insert(buld_usag_info_DTO);
 CONST_CONT_INFO_DAO const_cont_info_DAO = new CONST_CONT_INFO_DAO();
 const_cont_info_DAO.const_cont_info_Insert(const_cont_info_DTO);
  %>
-<%response.sendRedirect("/gplus2/index.jsp");%>
+<%response.sendRedirect("/index.jsp");%>

@@ -43,8 +43,8 @@ List<LIST_MEMBER_DTO> memberList = memberCompany_DAO.getMemComList(memberCompany
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li><a href="/gplus2/index.jsp"><i class="fa fa-home fa-fw"></i> Home</a></li>
-                <li><a href="/gplus2/login.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                <li><a href="/index.jsp"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                <li><a href="/login.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->

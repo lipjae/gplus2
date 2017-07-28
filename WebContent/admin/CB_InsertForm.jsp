@@ -72,13 +72,13 @@ function itemChange(){
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                 </button>
-                <a class="navbar-brand" href="/gplus2/index.jsp"><img src="./dist/images/logo.png" alt="건축플러스"></a>
+                <a class="navbar-brand" href="/index.jsp"><img src="./dist/images/logo.png" alt="건축플러스"></a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li><a href="index.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                <li><a href="/index.jsp"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                <li><a href="/login.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
