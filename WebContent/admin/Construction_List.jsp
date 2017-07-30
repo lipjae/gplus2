@@ -74,6 +74,16 @@ function countChange(a,b,c){
 		}
 	});
 }
+
+function constAdd(a,b){
+	window.location.href="CB_Add.jsp?id="+a+"&ccid="+b;
+}
+
+function constUpdate(a,b){
+	window.location.href="CB_Update.jsp?id="+a+"&ccid="+b;
+}
+
+
 </script>
 <body>
     <div id="wrapper">
@@ -153,7 +163,7 @@ function countChange(a,b,c){
 								<td>${list.rep_mng_nm}</td>
 								<td>${list.rep_contat_tel_no}</td>
 								<td align="center">${list.mng_quot_join_cnt}</td>
-                              <td><button type="button" class="btn btn-primary btn-sm btn-block">공종 추가 등록하기</button></td>
+                              <td><button type="button" class="btn btn-primary btn-sm btn-block" onclick="constAdd('${list.const_id}','${list.cont_cat_id}')">공종 추가 등록하기</button></td>
                               <td>
                                 <div class="form-group">
                                     <select class="form-control" id="proc_change" onchange="procChange(this.value,'${list.const_id}','${list.cont_cat_id}')">
@@ -164,7 +174,7 @@ function countChange(a,b,c){
                                     </select>
                                 </div>
                               </td>
-                              <td><button type="button" class="btn btn-primary btn-sm btn-block">수정하기</button></td>
+                              <td><button type="button" class="btn btn-primary btn-sm btn-block" onclick="constUpdate('${list.const_id}','${list.cont_cat_id}')">수정하기</button></td>
                               <td>
                                 <div class="form-group">
                                   <select class="form-control" id="count_change" onchange="countChange(this.value,'${list.const_id}','${list.cont_cat_id}')">

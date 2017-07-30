@@ -1,13 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@ page import="java.util.List"%>
 <%@page import="dao.LIST_DAO" %>
+<%@page import="dto.LIST_CONSTADD_DTO" %>
 <%@page import="dto.CONT_CAT_INFO_DTO" %>
 <jsp:useBean id="cci_DTO" class="dto.CONT_CAT_INFO_DTO" />
 <%
 LIST_DAO cci_DAO = new LIST_DAO();
 List<CONT_CAT_INFO_DTO> cci1List = cci_DAO.getContCatLv1List(cci_DTO);
+%>
+<%
+String id = request.getParameter("id");
+String ccid =request.getParameter("ccid");
+LIST_DAO add_DAO = new LIST_DAO();
+List<LIST_CONSTADD_DTO> addList = add_DAO.getConstAddInfo(id,ccid);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -28,6 +36,7 @@ List<CONT_CAT_INFO_DTO> cci1List = cci_DAO.getContCatLv1List(cci_DTO);
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
 function changeUint(id){
   var item = id;
@@ -37,7 +46,6 @@ function changeUint(id){
   var chID = "ch_"+item;
   document.getElementById(chID).value = py.toFixed(2);
 }
-
 
 function itemChange(){
 	jQuery.ajax({
@@ -72,13 +80,13 @@ function itemChange(){
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="./dist/images/logo.png" alt="건축플러스"></a>
+                <a class="navbar-brand" href="/index.jsp"><img src="./dist/images/logo.png" alt="건축플러스"></a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li><a href="index.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                <li><a href="/index.jsp"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                <li><a href="/login.jsp"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
@@ -93,6 +101,7 @@ function itemChange(){
                         <li><a href="Member_Company.jsp"><i class="fa fa-folder fa-fw"></i> 회원사(회원사)집계</a></li>
                         <li><a href="SiteRegister.jsp"><i class="fa fa-folder fa-fw"></i> 현장등록요청 집계</a></li>
                         <li><a href="QuotationJoin.jsp"><i class="fa fa-folder fa-fw"></i> 견적참여하기 집계</a></li>
+                        <li><a href="CCI_InsertForm.jsp"><i class="fa fa-folder fa-fw"></i> 공종 추가하기</a></li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -109,13 +118,14 @@ function itemChange(){
             </div>
             <!-- /.row -->
             <div class="row">
+            <c:forEach var="info" items="<%=addList%>">
                 <div class="col-xs-5">
-                	<form action="CB_InsertRslt.jsp" method="post">
+                	<form action="CB_AddRslt.jsp" method="post">
                     <table class="table">
                         <tbody>
                             <tr>
                                 <th>사업명</th>
-                                <td colspan="2"><input class="form-control" placeholder="" type="text" name="bus_nm"  value="핫도그 타워 신축"></td>
+                                <td colspan="2"><input class="form-control" placeholder="" type="text" name="bus_nm"  value="${info.bus_nm}" readonly="readonly"></td>
                             </tr>
                             <tr>
                                 <th>A 공종</th>
@@ -141,15 +151,8 @@ function itemChange(){
                                 <th>B 권역</th>
                                 <td colspan="2">
                                   <div class="form-group">
-                                      <select class="form-control" name="cont_zone_cd">
-                                          <option>권역</option>
-                                          <option value="MAZ">서울/수도권</option>
-                                          <option value="CHZ">충청권</option>
-										  <option value="YNZ">영남권</option>
-										  <option value="HNZ">호남권</option>
-										  <option value="KWZ">강원권</option>
-										  <option value="OEZ">해외/기타</option>
-	                                      <option>전체</option>
+                                      <select class="form-control" name="cont_zone_cd" readonly="readonly">
+                                          <option value="${info.cont_zone_cd}" selected="selected">${info.cont_zone_nm}</option>
                                       </select>
                                   </div>
                                 </td>
@@ -158,7 +161,7 @@ function itemChange(){
                                 <th>C 용도지구</th>
                                 <td colspan="2">
                                   <div class="form-group">
-                                      <select class="form-control" name="dist_zone_cd_select" id="dist_zone_cd_select" onchange="selectZone()" multiple >
+                                      <select class="form-control" name="dist_zone_cd_select" id="dist_zone_cd_select" onchange="selectZone()" multiple disabled>
                                           <option value="UCTZ">도시지역</option>
                                           <option value="UMNZ">관리지역</option>
                                           <option value="UARZ">농림지역</option>
@@ -193,21 +196,23 @@ function itemChange(){
                                           <option value="UFIZ">방화지구</option>
                                       </select>
                                   </div>
-                                  <input class="form-control" placeholder="" type="text" name="dist_zone_show" id="dist_zone_show" readonly="readonly" style="background-color:white;margin-top:10px">
-                                  <input type="hidden" name="dist_zone_cd" id="dist_zone_cd">
+                                  <input class="form-control" placeholder="" type="text" name="dist_zone_show" id="dist_zone_show" value="${info.dist_zone_nm}" readonly="readonly" style="margin-top:10px">
+                                  <input type="hidden" name="dist_zone_cd" id="dist_zone_cd" value="${info.dist_zone_cd}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>D 건축구조</th>
                                 <td colspan="2">
                                   <div class="form-group">
-                                      <select class="form-control" name="cont_strut_cd" id="structure">
-                                          <option value="ICC">철근콘크리트구조</option>
-                                          <option value="IHJ">철골조</option>
-                                          <option value="LHJ">경량철골조</option>
-                                          <option value="CHS">철골철근콘크리트구조</option>
-                                          <option value="THS">목조</option>
-                                          <option value="SAS">조적조</option>
+                                      <select class="form-control" name="cont_strut_cd" id="structure" readonly="readonly">
+                                          <option value="${info.cont_strut_cd}" selected="selected">
+                                          <c:if test="${info.cont_strut_cd eq 'ICC'}">철근콘크리트구조</c:if>
+                                          <c:if test="${info.cont_strut_cd eq 'IHJ'}">철골조</c:if>
+                                          <c:if test="${info.cont_strut_cd eq 'LHJ'}">경량철골조</c:if>
+                                          <c:if test="${info.cont_strut_cd eq 'CHS'}">철골철근콘크리트구조</c:if>
+                                          <c:if test="${info.cont_strut_cd eq 'THS'}">목조</c:if>
+                                          <c:if test="${info.cont_strut_cd eq 'SAS'}">조적조</c:if>
+                                          </option>
                                       </select>
                                   </div>
                                   <input class="form-control" placeholder="" type="hidden" style="margin-top:10px">
@@ -217,7 +222,7 @@ function itemChange(){
                                 <th>E 건물용도</th>
                                 <td colspan="2">
                                   <div class="form-group">
-                                      <select class="form-control" name="buld_usag_cd_select" id="buld_usag_cd_select" onchange="selectUsag()" multiple>
+                                      <select class="form-control" name="buld_usag_cd_select" id="buld_usag_cd_select" onchange="selectUsag()" multiple disabled>
                                           <option value="BAH">단독주택</option>
                                           <option value="BCH">공동주택</option>
                                           <option value="FHE">제1종 근린생활시설</option>
@@ -229,20 +234,20 @@ function itemChange(){
                                           <option value="FAE">공장</option>
                                       </select>
                                   </div>
-                                  <input class="form-control" placeholder="" type="text" name="buld_usag_show" id="buld_usag_show" readonly="readonly" style="background-color:white;margin-top:10px">
-                                  <input type="hidden" name="buld_usag_cd" id="buld_usag_cd">
+                                  <input class="form-control" placeholder="" type="text" name="buld_usag_show" id="buld_usag_show" value="${info.buld_usag_nm}"readonly="readonly" style="margin-top:10px">
+                                  <input type="hidden" name="buld_usag_cd" id="buld_usag_cd" value="${info.buld_usag_cd}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>사업자 위치</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="bus_area_loc" value="문정동 현대지식산업센터">
+                                  <input class="form-control" placeholder="" type="text" name="bus_area_loc" value="${info.bus_area_loc}" readonly="readonly">
                                 </td>
                             </tr>
                             <tr>
                                 <th>건축규모</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="cont_size" value="20층">
+                                  <input class="form-control" placeholder="" type="text" name="cont_size" value="${info.cont_size}" readonly="readonly">
                                 </td>
                             </tr>
                             <tr>
@@ -252,74 +257,88 @@ function itemChange(){
                                    <div class="input-group-addon">
                                     <label for="date"><i class="fa fa-calendar"></i></label>
                                    </div>
-                                   <input class="form-control" id="date" name="date"  type="text" value="2017년07월24일">
+                                   <input class="form-control" id="date" name="date"  type="text" value="${info.input_expt_dt}" readonly="readonly">
                                   </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>대지면적</th>
-                                <td><input class="form-control w90" placeholder="" type="text" name="grnd_area_no" value="1000" id="area01" onkeyup="changeUint(this.id)"> ㎡</td>
-                                <td><input class="form-control w90" placeholder="" type="text" id="ch_area01"> py</td>
+                                <td><input class="form-control w90" placeholder="" type="text" name="grnd_area_no" value="${info.grnd_area_no}" id="area01" readonly="readonly" onkeyup="changeUint(this.id)"> ㎡</td>
+                                <td>
+                                <fmt:formatNumber var="area01" value="${info.grnd_area_no/3.3058}" pattern=".00"></fmt:formatNumber>
+                                <input class="form-control w90" placeholder="" type="text" id="ch_area01" value="${area01}" readonly="readonly">py
+                                </td>
                             </tr>
                             <tr>
                                 <th>건축면적</th>
-                                <td><input class="form-control w90" placeholder="" type="text" name="const_area_no" value="800"  id="area02" onkeyup="changeUint(this.id)"> ㎡</td>
-                                <td><input class="form-control w90" placeholder="" type="text" id="ch_area02"> py</td>
+                                <td><input class="form-control w90" placeholder="" type="text" name="const_area_no" value="${info.const_area_no}"  id="area02" readonly="readonly" onkeyup="changeUint(this.id)"> ㎡</td>
+                                <td>
+                                <fmt:formatNumber var="area02" value="${info.const_area_no/3.3058}" pattern=".00"></fmt:formatNumber>
+                                <input class="form-control w90" placeholder="" type="text" id="ch_area02" value="${area02}" readonly="readonly"> py
+                                </td>
                             </tr>
                             <tr>
                                 <th>연면적</th>
-                                <td><input class="form-control w90" placeholder="" type="text" name="tot_area_no" value="4000" id="area03" onkeyup="changeUint(this.id)"> ㎡</td>
-                                <td><input class="form-control w90" placeholder="" type="text" id="ch_area03"> py</td>
+                                <td><input class="form-control w90" placeholder="" type="text" name="tot_area_no" value="${info.tot_area_no}" id="area03" readonly="readonly" onkeyup="changeUint(this.id)"> ㎡</td>
+                                <td>
+                                <fmt:formatNumber var="area03" value="${info.tot_area_no/3.3058}" pattern=".00"></fmt:formatNumber>
+                                <input class="form-control w90" placeholder="" type="text" id="ch_area03" value="${area03}" readonly="readonly"> py
+                                </td>
                             </tr>
                             <tr>
                                 <th>건폐율</th>
-                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="flor_area_rat" value="80">%</td>
+                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="flor_area_rat" value="${info.flor_area_rat}" readonly="readonly">%</td>
                             </tr>
                             <tr>
                                 <th>용적률</th>
-                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="use_area_rat" value="500">%</td>
+                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="use_area_rat" value="${info.use_area_rat}" readonly="readonly">%</td>
                             </tr>
                             <tr>
                                 <th>주차대수</th>
-                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="prk_no" value="200"> 대</td>
+                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="prk_no" value="${info.prk_no}" readonly="readonly"> 대</td>
                             </tr>
                             <tr>
                                 <th>견적예가</th>
                                 <td>
                                   <div class="form-group">
-                                    <select class="form-control" name="quot_expt_cd">
-                                        <option>공개/비공개</option>
-                                        <option value="QOPN" selected="selected">공개</option>
-                                        <option value="QCPN">비공개</option>
+                                    <select class="form-control" name="quot_expt_cd" readonly="readonly">
+                                        <option value="${info.quot_expt_cd}" selected="selected">
+                                        <c:if test="${info.quot_expt_cd eq 'QOPN'}">공개</c:if>
+                                        <c:if test="${info.quot_expt_cd eq 'QCPN'}">비공개</c:if>
+                                        </option>
                                     </select>
                                   </div>
                                 </td>
                                 <td>
-                                  <input class="form-control w90" placeholder="" type="text" name="quot_expt_amt" value="200"> 원
+                                  <input class="form-control w90" placeholder="" type="text" name="quot_expt_amt" value="${info.quot_expt_amt}" readonly="readonly"> 원
                                 </td>
                             </tr>
                             <tr>
                                 <th>견적방법</th>
                                 <td>
                                   <div class="form-group">
-                                    <select class="form-control" name="quot_met_cd">
-                                        <option value="PQCD" selected="selected">물량견적</option>
-                                        <option value="BQCD">도면견적</option>
-                                        <option value="DQCD">직접입력</option>
+                                    <select class="form-control" name="quot_met_cd" readonly="readonly">
+                                        <option value="${info.quot_met_cd}" selected="selected">
+                                        <c:if test="${info.quot_met_cd eq 'PQCD'}">물량견적</c:if>
+                                        <c:if test="${info.quot_met_cd eq 'BQCD'}">도면견적</c:if>
+                                        <c:if test="${info.quot_met_cd eq 'DQCD'}">직접입력</c:if>
+                                        </option>
                                     </select>
                                   </div>
                                 </td>
                                 <td>
-                                  <input class="form-control" placeholder="" type="text" name="quot_met_amt">
+                                  <input class="form-control" placeholder="" type="text" name="quot_met_amt" value="${info.quot_met_amt}" readonly="readonly">
                                 </td>
                             </tr>
                             <tr>
                                 <th>단종면허</th>
                                 <td colspan="2">
                                   <div class="form-group">
-                                    <select class="form-control" name="one_linc_yn">
-                                        <option value="Y">유</option>
-                                        <option value="N">무</option>
+                                    <select class="form-control" name="one_linc_yn" readonly="readonly">
+                                    	<option value="${info.one_linc_yn}" selected="selected">
+                                    	<c:if test="${info.one_linc_yn eq 'Y'}">유</c:if>
+                                    	<c:if test="${info.one_linc_yn eq 'N'}">무</c:if>
+                                    	</option>
                                     </select>
                                   </div>
                                 </td>
@@ -327,27 +346,29 @@ function itemChange(){
                             <tr>
                                 <th>전년도 시평액</th>
                                 <td colspan="2">
-                                  <input class="form-control w80" placeholder="" type="text" name="pre_ym_test_amt" value="200"> 억원 이상
+                                  <input class="form-control w80" placeholder="" type="text" name="pre_ym_test_amt" value="${info.pre_ym_test_amt}" readonly="readonly"> 억원 이상
                                 </td>
                             </tr>
                             <tr>
                                 <th>결제조건</th>
                                 <td>
                                   <div class="form-group">
-                                    <select class="form-control" name="pay_cond_cd">
-                                        <option value="POPN">공개</option>
-                                        <option value="PCPN">비공개</option>
+                                    <select class="form-control" name="pay_cond_cd" readonly="readonly">
+                                    	<option value="${info.pay_cond_cd}" selected="selected">
+                                    	<c:if test="${info.pay_cond_cd eq 'POPN'}">공개</c:if>
+                                    	<c:if test="${info.pay_cond_cd eq 'PCPN'}">비공개</c:if>
+                                    	</option>
                                     </select>
                                   </div>
                                 </td>
                                 <td>
-                                  <input class="form-control" placeholder="" type="text" name="pay_cond_amt" value="100">
+                                  <input class="form-control" placeholder="" type="text" name="pay_cond_amt" value="${info.pay_cond_amt}" readonly="readonly">
                                 </td>
                             </tr>
                             <tr>
                                 <th>추가정보</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="add_info" value="결제는 바로바로">
+                                  <input class="form-control" placeholder="" type="text" name="add_info" value="${info.add_info}" readonly="readonly">
                                 </td>
                             </tr>
                             <tr>
@@ -359,29 +380,31 @@ function itemChange(){
                             <tr>
                                 <th>건설사명</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="const_bus_nm" value="와이즈건설">
+                                  <input class="form-control" placeholder="" type="text" name="const_bus_nm" value="${info.const_bus_nm}" readonly="readonly">
                                 </td>
                             </tr>
                             <tr>
                                 <th>담당자 명</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text"  name="rep_mng_nm" value="핫도그왕">
+                                  <input class="form-control" placeholder="" type="text"  name="rep_mng_nm" value="${info.rep_mng_nm}" readonly="readonly">
                                 </td>
                             </tr>
                             <tr>
                                 <th>연락처</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="rep_contat_tel_no" value="010-7777-1234">
+                                  <input class="form-control" placeholder="" type="text" name="rep_contat_tel_no" value="${info.rep_contat_tel_no}" readonly="readonly">
                                 </td>
                             </tr>
                             <tr>
                                 <th>진행사항</th>
                                 <td colspan="2">
                                   <div class="form-group">
-                                    <select class="form-control" name="quot_prg_stat_cd">
-                                        <option value="NCD" selected="selected">신규</option>
-                                        <option value="QIG">견적중</option>
-                                        <option value="FNZ">완료</option>
+                                    <select class="form-control" name="quot_prg_stat_cd" readonly="readonly">
+                                    	<option value="${info.quot_prg_stat_cd}" selected="selected">
+                                    	<c:if test="${info.quot_prg_stat_cd eq 'NCD'}">신규</c:if>
+                                    	<c:if test="${info.quot_prg_stat_cd eq 'QIG'}">견적중</c:if>
+                                    	<c:if test="${info.quot_prg_stat_cd eq 'FNZ'}">완료</c:if>
+                                    	</option>
                                     </select>
                                   </div>
                                 </td>
@@ -390,10 +413,15 @@ function itemChange(){
                     </table>
                     <p class="alc">
 <!--                       <button type="button" class="btn btn-primary btn-lg" onclick="">저장하기</button> -->
+					  <input type=hidden name="constid" value="<%=id%>">
                       <input type="submit" class="btn btn-primary btn-lg" onclick="" value="저장하기">
                     </p>
 					</form>
                 </div>
+                
+
+
+				</c:forEach>
             </div>
             <!-- /.row -->
 
@@ -405,7 +433,7 @@ function itemChange(){
 
     <!-- /#wrapper -->
     <!-- jQuery -->
- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
  <script src="./dist/js/bootstrap.min.js"></script>
  <script src="./dist/metisMenu/metisMenu.min.js"></script>
@@ -423,6 +451,5 @@ function itemChange(){
 
  	})
  </script>
-
 </body>
 </html>

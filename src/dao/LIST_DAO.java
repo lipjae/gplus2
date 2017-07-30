@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.CONT_CAT_INFO_DTO;
-import dto.LIST_CONSTALL_DTO;
+import dto.LIST_CONSTADD_DTO;
 import dto.LIST_CONST_DTO;
 import dto.LIST_MEMBER_DTO;
 import dto.LIST_QUOTE_DTO;
@@ -51,25 +51,112 @@ public class LIST_DAO {
 	
 		
 	//공종추가등록을 위한 전체정보 집계
-	public List<LIST_CONSTALL_DTO> getConstAllInfo(LIST_CONSTALL_DTO list){
-		 String constall = "select * from CONST_BAS where CONST_ID=?";
-		 List<LIST_CONSTALL_DTO> constAllList = new ArrayList<LIST_CONSTALL_DTO>();
+	public List<LIST_CONSTADD_DTO> getConstAddInfo(String id, String ccid){
+		 String constAdd = 
+				 "SELECT\n"
+						 +"A.BUS_NM BUS_NM\n"
+						 +",B.CONT_CAT_ID CONT_CAT_ID\n"
+						 +",D.CONT_CAT_NM CONT_CAT_NM\n"
+						 +",A.CONT_ZONE_CD CONT_ZONE_CD\n"
+						 +",E.CD_NM CONT_ZONE_NM\n"
+						 +",GROUP_CONCAT(DISTINCT F.DIST_ZONE_CD) DIST_ZONE_CD\n"
+						 +",GROUP_CONCAT(DISTINCT G.CD_NM) DIST_ZONE_NM\n"
+						 +",A.CONT_STRUT_CD CONT_STRUT_CD"
+						 +",GROUP_CONCAT(DISTINCT H.BULD_USAG_CD) BULD_USAG_CD\n"
+						 +",GROUP_CONCAT(DISTINCT I.CD_NM) BULD_USAG_NM\n"
+						 +",A.BUS_AREA_LOC BUS_AREA_LOC\n"
+						 +",A.CONT_SIZE CONT_SIZE\n"
+						 +",DATE_FORMAT(B.INPUT_EXPT_DT,'%Y년%m월%d일') INPUT_EXPT_DT\n"
+						 +",A.GRND_AREA_NO GRND_AREA_NO\n"
+						 +",A.CONST_AREA_NO CONST_AREA_NO\n"
+						 +",A.TOT_AREA_NO TOT_AREA_NO\n"
+						 +",A.FLOR_AREA_RAT FLOR_AREA_RAT\n"
+						 +",A.USE_AREA_RAT USE_AREA_RAT\n"
+						 +",A.PRK_NO PRK_NO\n"
+						 +",A.CONST_BUS_NM CONST_BUS_NM\n"
+						 +",B.QUOT_EXPT_CD QUOT_EXPT_CD\n"
+						 +",B.QUOT_EXPT_AMT QUOT_EXPT_AMT\n"
+						 +",B.QUOT_MET_CD QUOT_MET_CD\n"
+						 +",B.QUOT_MET_AMT QUOT_MET_AMT\n"
+						 +",B.ONE_LINC_YN ONE_LINC_YN\n"
+						 +",B.PRE_YM_TEST_AMT PRE_YM_TEST_AMT\n"
+						 +",B.PAY_COND_CD PAY_COND_CD\n"
+						 +",B.PAY_COND_AMT PAY_COND_AMT\n"
+						 +",A.ADD_INFO ADD_INFO\n"
+						 +",A.CONST_BUS_NM\n"
+						 +",A.REP_MNG_NM\n"
+						 +",A.REP_CONTAT_TEL_NO\n"
+						 +",B.QUOT_PRG_STAT_CD QUOT_PRG_STAT_CD\n"
+						 +"FROM CONST_BAS A\n"
+						 +"LEFT OUTER JOIN CONST_CONT_INFO B\n"
+						 +"ON (A.CONST_ID = B.CONST_ID)\n"
+						 +"LEFT OUTER JOIN CMN_CD_DTL C\n"
+						 +"ON ( B.QUOT_PRG_STAT_CD = C.CMN_CD_ID AND C.CMN_CD_GRP_ID = 'QZCD')\n"
+						 +"LEFT OUTER JOIN CONT_CAT_INFO D\n"
+						 +"ON ( B.CONT_CAT_ID = D.CONT_CAT_ID)\n"
+						 +"LEFT OUTER JOIN CMN_CD_DTL E\n"
+						 +"ON ( A.CONT_ZONE_CD = E.CMN_CD_ID AND E.CMN_CD_GRP_ID = 'ZON')\n"
+						 +"LEFT OUTER JOIN DIST_ZONE_INFO F\n"
+						 +"ON ( A.CONST_ID = F.CONST_ID)\n"
+						 +"LEFT OUTER JOIN CMN_CD_DTL G\n"
+						 +"ON ( F.DIST_ZONE_CD = G.CMN_CD_ID AND G.CMN_CD_GRP_ID = 'UDZ')\n"
+						 +"LEFT OUTER JOIN BULD_USAG_INFO H\n"
+						 +"ON ( A.CONST_ID = H.CONST_ID)\n"
+						 +"LEFT OUTER JOIN CMN_CD_DTL I\n"
+						 +"ON ( H.BULD_USAG_CD = I.CMN_CD_ID AND I.CMN_CD_GRP_ID = 'BUC')\n"
+						 +"WHERE A.CONST_ID=? AND B.CONT_CAT_ID=?\n";
+		 
+		 List<LIST_CONSTADD_DTO> constAddList = new ArrayList<LIST_CONSTADD_DTO>();
 		 try {
 			 CN = JDBCUtil.getConnection();    
-			 PST = CN.prepareStatement(constall);
-			 //PST.setString(1, constall.getConst_id());
+			 PST = CN.prepareStatement(constAdd);
+			 PST.setString(1, id);
+			 PST.setString(2, ccid);
 			 RS = PST.executeQuery();
 			 while(RS.next()){
-				 LIST_CONSTALL_DTO con = new LIST_CONSTALL_DTO();
-				 //constall.setConst_id(RS.getString("const_id"));
+				 LIST_CONSTADD_DTO con = new LIST_CONSTADD_DTO();
+				 con.setBus_nm(RS.getString("bus_nm"));
+				 con.setCont_cat_id(RS.getString("cont_cat_id"));
+				 con.setCont_cat_nm(RS.getString("cont_cat_nm"));
+				 con.setCont_zone_cd(RS.getString("cont_zone_cd"));
+				 con.setCont_zone_nm(RS.getString("cont_zone_nm"));
+				 con.setDist_zone_cd(RS.getString("dist_zone_cd"));
+				 con.setDist_zone_nm(RS.getString("dist_zone_nm"));
+				 con.setCont_strut_cd(RS.getString("cont_strut_cd"));
+				 con.setBuld_usag_cd(RS.getString("buld_usag_cd"));
+				 con.setBuld_usag_nm(RS.getString("buld_usag_nm"));
+				 con.setBus_area_loc(RS.getString("bus_area_loc"));
+				 con.setCont_size(RS.getString("cont_size"));
+				 con.setInput_expt_dt(RS.getString("input_expt_dt"));
+				 con.setGrnd_area_no(RS.getInt("grnd_area_no"));
+				 con.setConst_area_no(RS.getInt("const_area_no"));
+				 con.setTot_area_no(RS.getInt("tot_area_no"));
+				 con.setFlor_area_rat(RS.getInt("flor_area_rat"));
+				 con.setUse_area_rat(RS.getInt("use_area_rat"));
+				 con.setPrk_no(RS.getInt("prk_no"));
+				 con.setConst_bus_nm(RS.getString("const_bus_nm"));
+				 con.setQuot_expt_cd(RS.getString("quot_expt_cd"));
+				 con.setQuot_expt_amt(RS.getInt("quot_expt_amt"));
+				 con.setQuot_met_cd(RS.getString("quot_met_cd"));
+				 con.setQuot_met_amt(RS.getInt("quot_met_amt"));
+				 con.setOne_linc_yn(RS.getString("one_linc_yn"));
+				 con.setPre_ym_test_amt(RS.getInt("pre_ym_test_amt"));
+				 con.setPay_cond_cd(RS.getString("pay_cond_cd"));
+				 con.setPay_cond_amt(RS.getInt("pay_cond_amt"));
+				 con.setAdd_info(RS.getString("add_info"));
+				 con.setConst_bus_nm(RS.getString("const_bus_nm"));
+				 con.setRep_mng_nm(RS.getString("rep_mng_nm"));
+				 con.setRep_contat_tel_no(RS.getString("rep_contat_tel_no"));
+				 con.setQuot_prg_stat_cd(RS.getString("quot_prg_stat_cd"));
 				 
-				 constAllList.add(con);
+				 constAddList.add(con);
 			 }
+			 System.out.println("=== 공종추가등록 정보 불러오기 성공 ===");
 		 } catch (Exception e) {
-			 System.out.println("===> 공종추가등록 불러오기 실패 ===");
+			 System.out.println("=== 공종추가등록 정보 불러오기 실패 ===");
 			 e.printStackTrace();
 		 } finally { JDBCUtil.close(RS, PST, CN);  }
-		 return constAllList;
+		 return constAddList;
 	 }
 	
 	

@@ -1,13 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@ page import="java.util.List"%>
 <%@page import="dao.LIST_DAO" %>
+<%@page import="dto.LIST_CONSTADD_DTO" %>
 <%@page import="dto.CONT_CAT_INFO_DTO" %>
 <jsp:useBean id="cci_DTO" class="dto.CONT_CAT_INFO_DTO" />
 <%
 LIST_DAO cci_DAO = new LIST_DAO();
 List<CONT_CAT_INFO_DTO> cci1List = cci_DAO.getContCatLv1List(cci_DTO);
+%>
+<%
+String id = request.getParameter("id");
+String ccid =request.getParameter("ccid");
+LIST_DAO add_DAO = new LIST_DAO();
+List<LIST_CONSTADD_DTO> addList = add_DAO.getConstAddInfo(id,ccid);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -28,6 +36,7 @@ List<CONT_CAT_INFO_DTO> cci1List = cci_DAO.getContCatLv1List(cci_DTO);
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
 function changeUint(id){
   var item = id;
@@ -37,7 +46,6 @@ function changeUint(id){
   var chID = "ch_"+item;
   document.getElementById(chID).value = py.toFixed(2);
 }
-
 
 function itemChange(){
 	jQuery.ajax({
@@ -110,13 +118,14 @@ function itemChange(){
             </div>
             <!-- /.row -->
             <div class="row">
+            <c:forEach var="info" items="<%=addList%>">
                 <div class="col-xs-5">
-                	<form action="CB_InsertRslt.jsp" method="post">
+                	<form action="#;" method="post">
                     <table class="table">
                         <tbody>
                             <tr>
                                 <th>사업명</th>
-                                <td colspan="2"><input class="form-control" placeholder="" type="text" name="bus_nm" ></td>
+                                <td colspan="2"><input class="form-control" placeholder="" type="text" name="bus_nm"  value="${info.bus_nm}" ></td>
                             </tr>
                             <tr>
                                 <th>A 공종</th>
@@ -193,8 +202,8 @@ function itemChange(){
                                           <option value="UFIZ">방화지구</option>
                                       </select>
                                   </div>
-                                  <input class="form-control" placeholder="" type="text" name="dist_zone_show" id="dist_zone_show" readonly="readonly" style="background-color:white;margin-top:10px">
-                                  <input type="hidden" name="dist_zone_cd" id="dist_zone_cd">
+                                  <input class="form-control" placeholder="" type="text" name="dist_zone_show" id="dist_zone_show" value="${info.dist_zone_nm}"  readonly="readonly" style="margin-top:10px">
+                                  <input type="hidden" name="dist_zone_cd" id="dist_zone_cd" value="${info.dist_zone_cd}">
                                 </td>
                             </tr>
                             <tr>
@@ -218,7 +227,7 @@ function itemChange(){
                                 <th>E 건물용도</th>
                                 <td colspan="2">
                                   <div class="form-group">
-                                      <select class="form-control" name="buld_usag_cd_select" id="buld_usag_cd_select" onchange="selectUsag()" multiple>
+                                      <select class="form-control" name="buld_usag_cd_select" id="buld_usag_cd_select" onchange="selectUsag()" multiple >
                                           <option value="BAH">단독주택</option>
                                           <option value="BCH">공동주택</option>
                                           <option value="FHE">제1종 근린생활시설</option>
@@ -230,20 +239,20 @@ function itemChange(){
                                           <option value="FAE">공장</option>
                                       </select>
                                   </div>
-                                  <input class="form-control" placeholder="" type="text" name="buld_usag_show" id="buld_usag_show" readonly="readonly" style="background-color:white;margin-top:10px">
-                                  <input type="hidden" name="buld_usag_cd" id="buld_usag_cd">
+                                  <input class="form-control" placeholder="" type="text" name="buld_usag_show" id="buld_usag_show" readonly="readonly" value="${info.buld_usag_nm}" style="margin-top:10px">
+                                  <input type="hidden" name="buld_usag_cd" id="buld_usag_cd" value="${info.buld_usag_cd}">
                                 </td>
                             </tr>
                             <tr>
                                 <th>사업자 위치</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="bus_area_loc">
+                                  <input class="form-control" placeholder="" type="text" name="bus_area_loc" value="${info.bus_area_loc}" >
                                 </td>
                             </tr>
                             <tr>
                                 <th>건축규모</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="cont_size">
+                                  <input class="form-control" placeholder="" type="text" name="cont_size" value="${info.cont_size}" >
                                 </td>
                             </tr>
                             <tr>
@@ -253,42 +262,51 @@ function itemChange(){
                                    <div class="input-group-addon">
                                     <label for="date"><i class="fa fa-calendar"></i></label>
                                    </div>
-                                   <input class="form-control" id="date" name="date"  type="text">
+                                   <input class="form-control" id="date" name="date"  type="text" value="${info.input_expt_dt}" >
                                   </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>대지면적</th>
-                                <td><input class="form-control w90" placeholder="" type="text" name="grnd_area_no" id="area01" onkeyup="changeUint(this.id)"> ㎡</td>
-                                <td><input class="form-control w90" placeholder="" type="text" id="ch_area01" readonly="readonly"> py</td>
+                                <td><input class="form-control w90" placeholder="" type="text" name="grnd_area_no" value="${info.grnd_area_no}" id="area01"  onkeyup="changeUint(this.id)"> ㎡</td>
+                                <td>
+                                <fmt:formatNumber var="area01" value="${info.grnd_area_no/3.3058}" pattern=".00"></fmt:formatNumber>
+                                <input class="form-control w90" placeholder="" type="text" id="ch_area01" value="${area01}" readonly="readonly" >py
+                                </td>
                             </tr>
                             <tr>
                                 <th>건축면적</th>
-                                <td><input class="form-control w90" placeholder="" type="text" name="const_area_no" id="area02" onkeyup="changeUint(this.id)"> ㎡</td>
-                                <td><input class="form-control w90" placeholder="" type="text" id="ch_area02" readonly="readonly"> py</td>
+                                <td><input class="form-control w90" placeholder="" type="text" name="const_area_no" value="${info.const_area_no}"  id="area02"  onkeyup="changeUint(this.id)"> ㎡</td>
+                                <td>
+                                <fmt:formatNumber var="area02" value="${info.const_area_no/3.3058}" pattern=".00"></fmt:formatNumber>
+                                <input class="form-control w90" placeholder="" type="text" id="ch_area02" value="${area02}" readonly="readonly" > py
+                                </td>
                             </tr>
                             <tr>
                                 <th>연면적</th>
-                                <td><input class="form-control w90" placeholder="" type="text" name="tot_area_no" id="area03" onkeyup="changeUint(this.id)"> ㎡</td>
-                                <td><input class="form-control w90" placeholder="" type="text" id="ch_area03" readonly="readonly"> py</td>
+                                <td><input class="form-control w90" placeholder="" type="text" name="tot_area_no" value="${info.tot_area_no}" id="area03"  onkeyup="changeUint(this.id)"> ㎡</td>
+                                <td>
+                                <fmt:formatNumber var="area03" value="${info.tot_area_no/3.3058}" pattern=".00"></fmt:formatNumber>
+                                <input class="form-control w90" placeholder="" type="text" id="ch_area03" value="${area03}" readonly="readonly" > py
+                                </td>
                             </tr>
                             <tr>
                                 <th>건폐율</th>
-                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="flor_area_rat">%</td>
+                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="flor_area_rat" value="${info.flor_area_rat}" >%</td>
                             </tr>
                             <tr>
                                 <th>용적률</th>
-                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="use_area_rat">%</td>
+                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="use_area_rat" value="${info.use_area_rat}" >%</td>
                             </tr>
                             <tr>
                                 <th>주차대수</th>
-                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="prk_no"> 대</td>
+                                <td colspan="2"><input class="form-control w90" placeholder="" type="text" name="prk_no" value="${info.prk_no}" > 대</td>
                             </tr>
                             <tr>
                                 <th>견적예가</th>
                                 <td>
                                   <div class="form-group">
-                                    <select class="form-control" name="quot_expt_cd">
+                                    <select class="form-control" name="quot_expt_cd" >
                                         <option>공개/비공개</option>
                                         <option value="QOPN" selected="selected">공개</option>
                                         <option value="QCPN">비공개</option>
@@ -296,7 +314,7 @@ function itemChange(){
                                   </div>
                                 </td>
                                 <td>
-                                  <input class="form-control w90" placeholder="" type="text" name="quot_expt_amt"> 원
+                                  <input class="form-control w90" placeholder="" type="text" name="quot_expt_amt" value="${info.quot_expt_amt}" > 원
                                 </td>
                             </tr>
                             <tr>
@@ -311,7 +329,7 @@ function itemChange(){
                                   </div>
                                 </td>
                                 <td>
-                                  <input class="form-control" placeholder="" type="text" name="quot_met_amt">
+                                  <input class="form-control" placeholder="" type="text" name="quot_met_amt" value="${info.quot_met_amt}" >
                                 </td>
                             </tr>
                             <tr>
@@ -328,7 +346,7 @@ function itemChange(){
                             <tr>
                                 <th>전년도 시평액</th>
                                 <td colspan="2">
-                                  <input class="form-control w80" placeholder="" type="text" name="pre_ym_test_amt"> 억원 이상
+                                  <input class="form-control w80" placeholder="" type="text" name="pre_ym_test_amt" value="${info.pre_ym_test_amt}" > 억원 이상
                                 </td>
                             </tr>
                             <tr>
@@ -342,13 +360,13 @@ function itemChange(){
                                   </div>
                                 </td>
                                 <td>
-                                  <input class="form-control" placeholder="" type="text" name="pay_cond_amt">
+                                  <input class="form-control" placeholder="" type="text" name="pay_cond_amt" value="${info.pay_cond_amt}" >
                                 </td>
                             </tr>
                             <tr>
                                 <th>추가정보</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="add_info">
+                                  <input class="form-control" placeholder="" type="text" name="add_info" value="${info.add_info}" >
                                 </td>
                             </tr>
                             <tr>
@@ -360,19 +378,19 @@ function itemChange(){
                             <tr>
                                 <th>건설사명</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="const_bus_nm">
+                                  <input class="form-control" placeholder="" type="text" name="const_bus_nm" value="${info.const_bus_nm}" >
                                 </td>
                             </tr>
                             <tr>
                                 <th>담당자 명</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text"  name="rep_mng_nm">
+                                  <input class="form-control" placeholder="" type="text"  name="rep_mng_nm" value="${info.rep_mng_nm}" >
                                 </td>
                             </tr>
                             <tr>
                                 <th>연락처</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="text" name="rep_contat_tel_no">
+                                  <input class="form-control" placeholder="" type="text" name="rep_contat_tel_no" value="${info.rep_contat_tel_no}" >
                                 </td>
                             </tr>
                             <tr>
@@ -391,10 +409,15 @@ function itemChange(){
                     </table>
                     <p class="alc">
 <!--                       <button type="button" class="btn btn-primary btn-lg" onclick="">저장하기</button> -->
+					  <input type=hidden name="constid" value="<%=id%>">
                       <input type="submit" class="btn btn-primary btn-lg" onclick="" value="저장하기">
                     </p>
 					</form>
                 </div>
+                
+
+
+				</c:forEach>
             </div>
             <!-- /.row -->
 
@@ -406,7 +429,7 @@ function itemChange(){
 
     <!-- /#wrapper -->
     <!-- jQuery -->
- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!--  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
  <script src="./dist/js/bootstrap.min.js"></script>
  <script src="./dist/metisMenu/metisMenu.min.js"></script>
@@ -424,6 +447,5 @@ function itemChange(){
 
  	})
  </script>
-
 </body>
 </html>
