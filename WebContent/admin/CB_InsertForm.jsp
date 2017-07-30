@@ -354,7 +354,7 @@ function itemChange(){
                             <tr>
                                 <th>도면 업로드</th>
                                 <td colspan="2">
-                                  <input class="form-control" placeholder="" type="file">
+                                  <input class="form-control" placeholder="" type="file" name="file">
                                 </td>
                             </tr>
                             <tr>

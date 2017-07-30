@@ -9,6 +9,7 @@ public class CONST_BLPNT_INFO_DTO {
 	private int cont_seq_no;			// 순번
 	private String bl_prnt_nm;		// 도면명
 	private String bl_prnt_url;		// 도면 URL
+	
 	public String getConst_id() {
 		return const_id;
 	}
