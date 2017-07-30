@@ -19,6 +19,7 @@ public class CONST_CONT_INFO_DTO {
 	private String one_linc_yn;				// 단종면허유무
 	private int pre_ym_test_amt;			// 전년도시평액
 	private Date reg_dt;						// 등록일자
+	private int mng_quot_join_cnt;		// 관리자 카운팅
 	
 	public String getConst_id() {
 		return const_id;
@@ -59,6 +60,9 @@ public class CONST_CONT_INFO_DTO {
 	public Date getReg_dt() {
 		return reg_dt;
 	}
+	public int getMng_quot_join_cnt() {
+		return mng_quot_join_cnt;
+	}
 	public void setConst_id(String const_id) {
 		this.const_id = const_id;
 	}
@@ -98,6 +102,10 @@ public class CONST_CONT_INFO_DTO {
 	public void setReg_dt(Date reg_dt) {
 		this.reg_dt = reg_dt;
 	}
+	public void setMng_quot_join_cnt(int mng_quot_join_cnt) {
+		this.mng_quot_join_cnt = mng_quot_join_cnt;
+	}
+	
 	
 
 }

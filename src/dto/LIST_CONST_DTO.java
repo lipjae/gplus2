@@ -3,6 +3,7 @@ package dto;
 import java.sql.Date;
 
 public class LIST_CONST_DTO {
+	
 	int no;
 	String const_id;
 	String prg_stat_nm;
@@ -17,6 +18,7 @@ public class LIST_CONST_DTO {
 	String const_bus_nm;
 	String rep_mng_nm;
 	String rep_contat_tel_no;
+	int mng_quot_join_cnt;
 	
 	public int getNo() {
 		return no;
@@ -60,6 +62,9 @@ public class LIST_CONST_DTO {
 	public String getRep_contat_tel_no() {
 		return rep_contat_tel_no;
 	}
+	public int getMng_quot_join_cnt() {
+		return mng_quot_join_cnt;
+	}
 	public void setNo(int no) {
 		this.no = no;
 	}
@@ -102,7 +107,9 @@ public class LIST_CONST_DTO {
 	public void setRep_contat_tel_no(String rep_contat_tel_no) {
 		this.rep_contat_tel_no = rep_contat_tel_no;
 	}
-	
+	public void setMng_quot_join_cnt(int mng_quot_join_cnt) {
+		this.mng_quot_join_cnt = mng_quot_join_cnt;
+	}
 	
 
 }

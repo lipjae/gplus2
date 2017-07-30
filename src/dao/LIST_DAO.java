@@ -90,6 +90,7 @@ public class LIST_DAO {
 						+ ",A.CONST_BUS_NM\n"
 						+ ",A.REP_MNG_NM\n"
 						+ ",A.REP_CONTAT_TEL_NO\n"
+						+ ",B.MNG_QUOT_JOIN_CNT\n"
 						+ "FROM CONST_BAS A LEFT OUTER JOIN CONST_CONT_INFO B\n"
 						+ "ON (A.CONST_ID = B.CONST_ID)\n"
 						+ "LEFT OUTER JOIN CMN_CD_DTL C\n"
@@ -124,6 +125,7 @@ public class LIST_DAO {
 				cb_all_dto.setConst_bus_nm(RS.getString("const_bus_nm"));
 				cb_all_dto.setRep_mng_nm(RS.getString("rep_mng_nm"));
 				cb_all_dto.setRep_contat_tel_no(RS.getString("rep_contat_tel_no"));
+				cb_all_dto.setMng_quot_join_cnt(RS.getInt("mng_quot_join_cnt"));
 				cb_ALL_List.add(cb_all_dto);
 			}
 			System.out.println("=== 현장정보 불러오기 성공 ===");

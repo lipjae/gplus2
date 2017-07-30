@@ -30,22 +30,43 @@ List<LIST_CONST_DTO> cbList = list_const_DAO.getCBList(cb_List_DTO) ;
 </head>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script>
-function procChange(){
-// 	alert($("#proc_change").val());
-// 	alert($("#const_id").val());
-// 	alert($("#cont_cat_id").val());
+function procChange(a,b,c){
 	jQuery.ajax({
 		url : "../ajax/change_Process.jsp",
 		type : "POST",
 		data : {
-			proc : $("#proc_change").val(),
-			id : $("#const_id").val(),
-			ccid : $("#cont_cat_id").val()
+			proc : a,
+			id : b,
+			ccid : c
 		},
 		success : function(data) {
-				var a=document.getElementById("proc_change");
-				var message = a.options[a.selectedIndex].text
-				alert("진행사항이 '"+message+"'(으)로 변경되었습니다");
+				//var message;
+				//if(a=="NCD") message = "신규";
+				//else if(a=="QIG") message = "견적중";
+				//else message = "완료";
+				//alert("진행사항이 "+message+"(으)로 변경되었습니다");
+				location.reload();
+		},
+		error : function(xhr, status, error) {
+			alert("Ajax Error!");
+		}
+	});
+}
+
+function countChange(a,b,c){
+	jQuery.ajax({
+		url : "../ajax/change_Count.jsp",
+		type : "POST",
+		data : {
+			count : a,
+			id : b,
+			ccid : c
+		},
+		success : function(data) {
+				//var message;
+				//if(a=="plus") message = "추가";
+				//else message = "삭제";
+				//alert("카운팅이 "+message+"되었습니다");
 				location.reload();
 		},
 		error : function(xhr, status, error) {
@@ -114,6 +135,7 @@ function procChange(){
                               <th>건설사명</th>
                               <th>담당자명</th>
                               <th>연락처</th>
+                              <th>관리자 카운팅</th>
                               <th colspan="4">추가 및 수정</th>
                           </tr>
                       </thead>
@@ -130,26 +152,25 @@ function procChange(){
 								<td>${list.const_bus_nm}</td>
 								<td>${list.rep_mng_nm}</td>
 								<td>${list.rep_contat_tel_no}</td>
+								<td align="center">${list.mng_quot_join_cnt}</td>
                               <td><button type="button" class="btn btn-primary btn-sm btn-block">공종 추가 등록하기</button></td>
                               <td>
                                 <div class="form-group">
-                                    <select class="form-control" id="proc_change" onchange="procChange()">
+                                    <select class="form-control" id="proc_change" onchange="procChange(this.value,'${list.const_id}','${list.cont_cat_id}')">
                                     	<option value="menu">진행사항 변경하기</option>
                                         <option value="NCD">신규</option>
                                         <option value="QIG">견적중</option>
                                         <option value="FNZ">완료</option>
                                     </select>
-                                    <input type="hidden" id="const_id" value="${list.const_id}">
-                                    <input type="hidden" id="cont_cat_id" value="${list.cont_cat_id}">
                                 </div>
                               </td>
                               <td><button type="button" class="btn btn-primary btn-sm btn-block">수정하기</button></td>
                               <td>
                                 <div class="form-group">
-                                  <select class="form-control">
-                                      <option>카운팅 추가삭제</option>
-                                      <option>추가하기</option>
-                                      <option>삭제하기</option>
+                                  <select class="form-control" id="count_change" onchange="countChange(this.value,'${list.const_id}','${list.cont_cat_id}')">
+                                      <option value="menu">카운팅 추가삭제</option>
+                                      <option value="plus">추가하기</option>
+                                      <option value="minus">삭제하기</option>
                                   </select>
                               </div>
                             </td>

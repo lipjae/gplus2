@@ -15,7 +15,7 @@ public class CONST_CONT_INFO_DAO {
 	private  ResultSet  RS= null ;
 	
 	public void const_cont_info_Insert(CONST_CONT_INFO_DTO const_cont_info_DTO){
-    	String const_cont_info_INSERT = "insert into CONST_CONT_INFO values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate())";
+    	String const_cont_info_INSERT = "insert into CONST_CONT_INFO values(?,?,?,?,?,?,?,?,?,?,?,?,sysdate(),?)";
         try {
             CN = JDBCUtil.getConnection();
             PST = CN.prepareStatement(const_cont_info_INSERT);
@@ -32,6 +32,7 @@ public class CONST_CONT_INFO_DAO {
         	PST.setInt(10, const_cont_info_DTO.getPay_cond_amt());
         	PST.setString(11, const_cont_info_DTO.getOne_linc_yn());
         	PST.setInt(12, const_cont_info_DTO.getPre_ym_test_amt());
+        	PST.setInt(13,const_cont_info_DTO.getMng_quot_join_cnt());
         	
             PST.executeUpdate();
             System.out.println("===> 공사공종정보 CONST_CONT_INFO_insert 성공 ===");

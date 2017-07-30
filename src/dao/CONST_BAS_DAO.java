@@ -37,7 +37,7 @@ public class CONST_BAS_DAO {
 	public void const_bas_Insert(CONST_BAS_DTO const_bas_DTO){
     	String const_bas_INSERT = "insert into CONST_BAS values"
     			+ "(F_GET_ID('ST')"
-    			+ ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,sysdate(),?,?,?,?,?)";
+    			+ ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,sysdate(),?,?,?,?)";
         try {
             CN = JDBCUtil.getConnection();
             PST = CN.prepareStatement(const_bas_INSERT);
@@ -63,7 +63,6 @@ public class CONST_BAS_DAO {
             PST.setString(19, const_bas_DTO.getRep_mng_email());
             PST.setFloat(20,const_bas_DTO.getLati_pos());
             PST.setFloat(21,const_bas_DTO.getLongi_pos());
-            PST.setInt(22,const_bas_DTO.getMng_join_cnt());
 
             PST.executeUpdate();
             System.out.println("===> 공사기본정보 CONST_BAS _insert 성공 ===");
