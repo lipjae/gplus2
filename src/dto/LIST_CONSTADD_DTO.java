@@ -35,7 +35,21 @@ public class LIST_CONSTADD_DTO {
 	private String rep_mng_nm;
 	private String rep_contat_tel_no;
 	private String quot_prg_stat_cd;
+	private String lat;
+	private String lng;
 	
+	public String getLat() {
+		return lat;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	public String getLng() {
+		return lng;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
 	public String getBus_nm() {
 		return bus_nm;
 	}

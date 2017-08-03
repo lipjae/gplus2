@@ -66,7 +66,7 @@ public class LIST_DAO {
 						 +",GROUP_CONCAT(DISTINCT I.CD_NM) BULD_USAG_NM\n"
 						 +",A.BUS_AREA_LOC BUS_AREA_LOC\n"
 						 +",A.CONT_SIZE CONT_SIZE\n"
-						 +",DATE_FORMAT(B.INPUT_EXPT_DT,'%Y년%m월%d일') INPUT_EXPT_DT\n"
+						 +",DATE_FORMAT(B.INPUT_EXPT_DT,'%Y-%m-%d') INPUT_EXPT_DT\n"
 						 +",A.GRND_AREA_NO GRND_AREA_NO\n"
 						 +",A.CONST_AREA_NO CONST_AREA_NO\n"
 						 +",A.TOT_AREA_NO TOT_AREA_NO\n"
@@ -86,6 +86,8 @@ public class LIST_DAO {
 						 +",A.CONST_BUS_NM\n"
 						 +",A.REP_MNG_NM\n"
 						 +",A.REP_CONTAT_TEL_NO\n"
+						 +",A.LATI_POS\n"
+						 +",A.LONGI_POS\n"
 						 +",B.QUOT_PRG_STAT_CD QUOT_PRG_STAT_CD\n"
 						 +"FROM CONST_BAS A\n"
 						 +"LEFT OUTER JOIN CONST_CONT_INFO B\n"
@@ -148,7 +150,8 @@ public class LIST_DAO {
 				 con.setRep_mng_nm(RS.getString("rep_mng_nm"));
 				 con.setRep_contat_tel_no(RS.getString("rep_contat_tel_no"));
 				 con.setQuot_prg_stat_cd(RS.getString("quot_prg_stat_cd"));
-				 
+				 con.setLat(RS.getString("lati_pos"));
+				 con.setLng(RS.getString("longi_pos"));
 				 constAddList.add(con);
 			 }
 			 System.out.println("=== 공종추가등록 정보 불러오기 성공 ===");

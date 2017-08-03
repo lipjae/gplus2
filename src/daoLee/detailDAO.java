@@ -16,6 +16,7 @@ public class detailDAO {
 	private  PreparedStatement  PST= null ;  
 	private  ResultSet  RS= null ;
 	
+	
 	public List<detailDTO> detail(String id) throws SQLException{
 		List<detailDTO> res_list = new ArrayList<>();
 		String sql;
@@ -28,7 +29,7 @@ public class detailDAO {
 				"c.INPUT_EXPT_DT as 투입예정,\r\n" + 
 				"(select CD_NM from CMN_CD_DTL where CMN_CD_ID = c.PAY_COND_CD) as 결제조건,\r\n" + 
 				"a.BUS_NM as 사업명,\r\n" + 
-				"(select CD_NM from CMN_CD_DTL where CMN_CD_ID = (select DIST_ZONE_CD from DIST_ZONE_INFO where CONST_ID = a.CONST_ID)) as 용도지구,\r\n" + 
+				"(select CD_NM from CMN_CD_DTL where CMN_CD_ID = (select DIST_ZONE_CD from DIST_ZONE_INFO where CONST_ID = a.CONST_ID limit 1)) as 용도지구,\r\n" + 
 				"a.CONT_SIZE as 건축규모,\r\n" + 
 				"(select CD_NM from CMN_CD_DTL where CMN_CD_ID =a.CONT_STRUT_CD) as 건축구조,\r\n" + 
 				"a.GRND_AREA_NO as 대지면적,\r\n" + 
@@ -42,7 +43,9 @@ public class detailDAO {
 				"c.PAY_COND_AMT as 결제조건,\r\n" + 
 				"a.ADD_INFO as 추가정보,\r\n" + 
 				"(select CD_NM from CMN_CD_DTL where CMN_CD_ID = c.QUOT_PRG_STAT_CD) as 진행상태,\r\n" + 
-				"a.MNG_QUOT_JOIN_CNT as 참여수,\r\n" + 
+				"c.MNG_QUOT_JOIN_CNT as 참여수,\r\n" +
+				"a.LATI_POS as 위도,\r\n" +
+				"a.LONGI_POS as 경도,\r\n" +
 				"c.CONT_CAT_ID 공종\r\n" + 
 				"from CONST_BAS a\r\n" + 
 				"left join BULD_USAG_INFO b\r\n" + 
@@ -51,11 +54,16 @@ public class detailDAO {
 				"on a.CONST_ID = c.CONST_ID\r\n" + 
 				"where a.CONST_ID = ?";
 		
+		
 		System.out.println(sql);
 		 CN = JDBCUtil.getConnection();
 		 PST = CN.prepareStatement(sql); // 쿼리 준비
 		 PST.setString(1, id);
 		 RS = PST.executeQuery();
+		 
+		 
+		 
+		 
 		 
 		 while(RS.next()) {
 			 detailDTO res = new detailDTO();
@@ -83,6 +91,8 @@ public class detailDAO {
 			 res.setColunm22(RS.getString("진행상태"));
 			 res.setColunm23(RS.getString("참여수"));
 			 res.setColunm24(RS.getString("공종"));
+			 res.setColunm25(RS.getString("위도"));
+			 res.setColunm26(RS.getString("경도"));
 			 /*res.setColunm20(RS.getString("사업자위치"));
 			 res.setColunm21(RS.getString("사업자위치"));
 			 res.setColunm22(RS.getString("사업자위치"));*/

@@ -41,6 +41,13 @@ String company2 = dto.get(0).getColunm24();
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+    .map_wrap {position:relative;width:100%;height:350px;}
+    .title {font-weight:bold;display:block;}
+    .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+    #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+    .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+</style>
   </head>
   <body id="sub">
   <div id="wrap">
@@ -147,7 +154,15 @@ String company2 = dto.get(0).getColunm24();
               </div>
 
               <h3>위치정보</h3>
-              <div style="font:normal normal 400 12px/normal dotum, sans-serif; width:100%; height:356px; color:#333; position:relative"><div style="height: 355px;"><a target="_blank" href="http://map.daum.net/?urlX=487982.0&amp;urlY=1106665.0&amp;itemId=23903988&amp;q=%EB%82%A8%EA%B4%91%EB%B9%8C%EB%9D%BC&amp;srcid=23903988&amp;map_type=TYPE_MAP&amp;from=roughmap"><img class="map" src="http://t1.daumcdn.net/roughmap/imgmap/621684f68ec52b681926ae73213a6ba6e1ff2642860236deef985efb4bb8a0b6" width="100%" height="100%" style="border:1px solid #ccc;"></a></div></div>
+              <p style="margin-top:-12px">
+    <em class="link">
+        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+            
+        </a>
+    </em>
+</p>
+<div id="map" style="width:100%;height:350px;"></div>
+
               <h3 id="div1">견적 예가</h3>
               <div class="box">
                 <ul class="t_list">
@@ -244,4 +259,35 @@ String company2 = dto.get(0).getColunm24();
   <!-- <script src="js/script.js"></script> -->
   <script src="js/lee.js"></script>
   </body>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dea589375d751894ac7d649f9e7009d2&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = { 
+    center: new daum.maps.LatLng(<%=dto.get(0).getColunm25()%>, <%=dto.get(0).getColunm26()%>), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
+
+var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+//마커가 표시될 위치입니다 
+var markerPosition  = new daum.maps.LatLng(<%=dto.get(0).getColunm25()%>, <%=dto.get(0).getColunm26()%>); 
+
+//마커를 생성합니다
+var marker = new daum.maps.Marker({
+position: markerPosition
+});
+//인포윈도우로 장소에 대한 설명을 표시합니다
+var infowindow = new daum.maps.InfoWindow({
+    content: '<div style="width:150px;text-align:center;padding:6px 0;"><%=dto.get(0).getColunm1() %></div>'
+});
+
+infowindow.open(map, marker);
+//마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+
+//아래 코드는 지도 위의 마커를 제거하는 코드입니다
+//marker.setMap(null);
+    
+</script>
+
 </html>
